@@ -1,0 +1,37 @@
+eureka:
+  client:
+    fetch-registry: true
+    healthcheck:
+      enabled: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+management:
+  endpoint:
+    routes:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+server:
+  port: 8080
+spring:
+  application:
+    name: entrypoint
+zuul:
+  routes:
+    getBookList:
+      path: /books
+      serviceId: getBookList
+      url: http://localhost:8085
+    bliLiber:
+     path: /buybooks/**
+     url: http://localhost:8086/
+     stripPrefix: false
+    economy:
+     path: /economy/**
+     url: http://localhost:8087
+     stripPrefix: false
+#economy: resource
+#bliLiber: resource
